@@ -3,9 +3,9 @@
 import { Product } from "@/types/shopify";
 
 console.log('ENV CHECK:', {
-    domain: process.env.SHOPIFY_STORE_DOMAIN,
-    tokenExists: !!process.env.SHOPIFY_STOREFRONT_ACCESS_TOKEN,
-    tokenLength: process.env.SHOPIFY_STOREFRONT_ACCESS_TOKEN?.length
+    domain: process.env.NEXT_PUBLIC_SHOPIFY_STORE_DOMAIN,
+    tokenExists: !!process.env.NEXT_PUBLIC_SHOPIFY_STOREFRONT_ACCESS_TOKEN,
+    tokenLength: process.env.NEXT_PUBLIC_SHOPIFY_STOREFRONT_ACCESS_TOKEN?.length
 });
 async function shopifyFetch<T>({
   query,
@@ -15,17 +15,17 @@ async function shopifyFetch<T>({
   variables?: Record<string, any>;
 }): Promise<T> {
     
-  const endpoint = `https://${process.env.SHOPIFY_STORE_DOMAIN}/api/2024-10/graphql.json`;
-  console.log("Shopify Store Domain:", process.env.SHOPIFY_STORE_DOMAIN);
-  console.log("Shopify Token exists:", !!process.env.SHOPIFY_STOREFRONT_ACCESS_TOKEN);
-  console.log("Shopify Token length:", process.env.SHOPIFY_STOREFRONT_ACCESS_TOKEN?.length);
+  const endpoint = `https://${process.env.NEXT_PUBLIC_SHOPIFY_STORE_DOMAIN}/api/2024-10/graphql.json`;
+  console.log("Shopify Store Domain:", process.env.NEXT_PUBLIC_SHOPIFY_STORE_DOMAIN);
+  console.log("Shopify Token exists:", !!process.env.NEXT_PUBLIC_SHOPIFY_STOREFRONT_ACCESS_TOKEN);
+  console.log("Shopify Token length:", process.env.NEXT_PUBLIC_SHOPIFY_STOREFRONT_ACCESS_TOKEN?.length);
 
   try {
     const response = await fetch(endpoint, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'X-Shopify-Storefront-Access-Token': process.env.SHOPIFY_STOREFRONT_ACCESS_TOKEN!,
+        'X-Shopify-Storefront-Access-Token': process.env.NEXT_PUBLIC_SHOPIFY_STOREFRONT_ACCESS_TOKEN!,
       },
       body: JSON.stringify({ query, variables }),
       
