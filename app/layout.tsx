@@ -2,10 +2,10 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import { StoreProvider } from "@/lib/redux/StoreProvider";
-
+import { Toaster } from "sonner";
 export const metadata: Metadata = {
-  title: "CommerceHub",
-  description: "Modern e-commerce storefront built with Next.js and Shopify",
+  title: "Basecamp Supply",
+  description: "Premium outdoor gear and equipment for your next adventure",
 };
 
 export default function RootLayout({
@@ -24,6 +24,7 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           {children}
+          <Toaster position="top-right" richColors />
         </ThemeProvider>
         </StoreProvider>
       </body>

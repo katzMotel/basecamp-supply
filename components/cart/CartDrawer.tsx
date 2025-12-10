@@ -4,7 +4,7 @@ import { useAppSelector, useAppDispatch } from '@/lib/redux/hooks';
 import { removeFromCart, updateQuantity, clearCart } from '@/lib/redux/slices/cartSlice';
 import { Button } from '@/components/ui';
 import { X, Plus, Minus, Trash2 } from 'lucide-react';
-
+import { toast } from 'sonner';
 interface CartDrawerProps {
   isOpen: boolean;
   onClose: () => void;
@@ -106,7 +106,12 @@ export function CartDrawer({ isOpen, onClose }: CartDrawerProps) {
 
                       {/* Remove Item */}
                       <button
-                        onClick={() => dispatch(removeFromCart(item.id))}
+                      onClick={() => {
+                        dispatch(removeFromCart(item.id));
+                        toast.success('Removed from cart', {
+                          description: item.title,
+                        });
+                      }}
                         className="ml-auto p-1 text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20 rounded"
                         aria-label="Remove item"
                       >
@@ -136,7 +141,10 @@ export function CartDrawer({ isOpen, onClose }: CartDrawerProps) {
 
             {/* Clear Cart */}
             <button
-              onClick={() => dispatch(clearCart())}
+            onClick={() => {
+              dispatch(clearCart());
+              toast.success('Cart cleared');
+            }}
               className="w-full text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors"
             >
               Clear Cart

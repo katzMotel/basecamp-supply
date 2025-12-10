@@ -5,54 +5,62 @@ import { useAppDispatch, useAppSelector } from '@/lib/redux/hooks';
 import { fetchProducts } from '@/lib/redux/slices/productsSlice';
 import { Header } from '@/components/Header';
 import { ProductCard } from '@/components/products/ProductCard';
+import { ProductCardSkeleton } from '@/components/products/ProductCardSkeleton';
+
 export default function Home() {
-  console.log('Home component rendering');
   const dispatch = useAppDispatch();
-  console.log('dispatch:', dispatch);
   const { items: products, loading, error } = useAppSelector((state) => state.products);
-  console.log('Redux state:', {products, loading, error});
-  if (!products){
-    return (
-      <main className='min-h-screen p-8'>
-        <Header/>
-        <div className='text-center py-12'>Initializing...</div>
-      </main>
-    );
-  }
+
   useEffect(() => {
-    console.log('UseEffect running!');
-    console.log('About to dispatch fetchProducts');
     dispatch(fetchProducts());
-    console.log('fetchProductsDispatched');
   }, [dispatch]);
-
-  if (loading) {
-    return (
-      <main className="min-h-screen p-8">
-        <Header />
-        <div className="text-center py-12">Loading products...</div>
-      </main>
-    );
-  }
-
-  if (error) {
-    return (
-      <main className="min-h-screen p-8">
-        <Header />
-        <div className="text-center py-12 text-red-500">Error: {error}</div>
-      </main>
-    );
-  }
 
   return (
     <main className="min-h-screen p-8">
       <Header />
       
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        {products.map((product) => (
-          <ProductCard key={product.id} product={product}/>
-        ))}
-      </div>
+      {/* Loading State */}
+      {loading && (
+        <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6">
+          {Array.from({ length: 8 }).map((_, i) => (
+            <ProductCardSkeleton key={i} />
+          ))}
+        </div>
+      )}
+
+      {/* Error State */}
+      {error && (
+        <div className="text-center py-12">
+          <div className="text-red-500 dark:text-red-400 text-lg mb-2">
+            Failed to load products
+          </div>
+          <p className="text-gray-600 dark:text-gray-400">{error}</p>
+          <button
+            onClick={() => dispatch(fetchProducts())}
+            className="mt-4 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors"
+          >
+            Try Again
+          </button>
+        </div>
+      )}
+
+      {/* Products Grid */}
+      {!loading && !error && products.length > 0 && (
+        <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6">
+          {products.map((product) => (
+            <ProductCard key={product.id} product={product} />
+          ))}
+        </div>
+      )}
+
+      {/* Empty State */}
+      {!loading && !error && products.length === 0 && (
+        <div className="text-center py-12">
+          <p className="text-gray-600 dark:text-gray-400 text-lg">
+            No products found
+          </p>
+        </div>
+      )}
     </main>
   );
 }

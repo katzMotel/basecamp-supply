@@ -6,6 +6,7 @@ import { useAppDispatch } from '@/lib/redux/hooks';
 import { addToCart } from '@/lib/redux/slices/cartSlice';
 import { Button } from '@/components/ui';
 import { ArrowLeft } from 'lucide-react';
+import { toast } from 'sonner';
 import type { ProductWithVariants } from '@/types/shopify';
 
 interface ProductDetailProps {
@@ -16,12 +17,15 @@ export function ProductDetail({ product }: ProductDetailProps) {
   const router = useRouter();
   const dispatch = useAppDispatch();
   const [selectedImage, setSelectedImage] = useState(0);
+  const [isAdding, setIsAdding] = useState(false);
 
   const price = parseFloat(product.priceRange.minVariantPrice.amount);
   const currency = product.priceRange.minVariantPrice.currencyCode;
   const images = product.images.edges.map(edge => edge.node);
 
-  const handleAddToCart = () => {
+  const handleAddToCart = async () => {
+    setIsAdding(true);
+    
     dispatch(addToCart({
       id: product.id,
       title: product.title,
@@ -30,6 +34,12 @@ export function ProductDetail({ product }: ProductDetailProps) {
       image: images[0]?.url || '',
       imageAlt: images[0]?.altText || product.title,
     }));
+    
+    toast.success('Added to cart', {
+      description: product.title,
+    });
+
+    setTimeout(() => setIsAdding(false), 500);
   };
 
   return (
@@ -102,8 +112,9 @@ export function ProductDetail({ product }: ProductDetailProps) {
             size="lg"
             className="w-full md:w-auto"
             onClick={handleAddToCart}
+            disabled={isAdding}
           >
-            Add to Cart
+            {isAdding ? 'Adding...' : 'Add to Cart'}
           </Button>
 
           {/* Additional Info */}

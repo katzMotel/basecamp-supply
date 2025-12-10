@@ -12,7 +12,7 @@ export function Header() {
   return (
     <>
     <header className="flex justify-between items-center mb-8">
-      <h1 className="text-4xl font-bold">CommerceHub</h1>
+      <h1 className="text-4xl font-bold">Basecamp Supply</h1>
       
       <div className="flex items-center gap-4">
         {/* Cart Button */}
