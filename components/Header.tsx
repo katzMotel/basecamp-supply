@@ -29,7 +29,7 @@ export function Header() {
               sticky top-0 z-50
               flex justify-center items-center relative
               p-4
-              bg-white dark:bg--[#0a0a0a]
+              bg-white dark:bg-[#0a0a0a]
               ${isScrolled ? 'border-b border-gray-200 dark:border-gray-800' : ''} 
               transition-transform duration-300 ease-in-out
               ${scrollDirection === 'down'? '-translate-y-full' : 'translate-y-0'}
