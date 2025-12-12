@@ -48,6 +48,7 @@ export function CartDrawer({ isOpen, onClose }: CartDrawerProps) {
       {/* Drawer - slides in from right */}
       <div 
         className={`
+          cart-texture
           fixed right-0 top-0 h-full w-full max-w-md 
           bg-white dark:bg-[#1a1a1a] 
           z-50 shadow-xl flex flex-col

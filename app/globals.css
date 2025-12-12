@@ -43,3 +43,48 @@ body {
   color: var(--color-text-primary);
   transition: background-color 0.3s ease, color 0.3s ease;
 }
+body::before{
+  content:'';
+  position: fixed;
+  bottom: 0;
+  left:0;
+  width:100%;
+  height: 80vh;
+  background-image: url('/patterns/layered-mountains.png');
+  background-repeat: no-repeat;
+  background-position: bottom center;
+  background-size: cover;
+  opacity: 0.3;
+  pointer-events: none;
+  z-index: 0;
+
+}
+.dark body::before{
+  opacity: 0.2;
+  filter: brightness(1.8) saturate(0.7);
+}
+/* Cart drawer canvas texture */
+
+
+.cart-texture::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url('/patterns/white-linen.png');
+  background-repeat: repeat;
+  background-size: 300px 300px; /* Adjust based on your texture scale */
+  opacity: 0.55; /* Start subtle */
+  pointer-events: none;
+  z-index: 0;
+}
+
+.dark .cart-texture::before {
+  opacity: 0.56; /* More subtle in dark mode */
+  filter: brightness(0.8); /* Slightly darken for dark theme */
+}
+
+/* Ensure cart content sits above texture */
+.cart-texture > * {
+  position: relative;
+  z-index: 1;
+}

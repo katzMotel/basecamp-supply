@@ -8,7 +8,7 @@ import { SearchBar } from '@/components/products/SearchBar';
 import { FilterControls } from '@/components/products/FilterControls';
 import { ProductCard } from '@/components/products/ProductCard';
 import { ProductCardSkeleton } from '@/components/products/ProductCardSkeleton';
-
+import { Hero } from '@/components/hero/Hero';
 export default function Home() {
   const dispatch = useAppDispatch();
   const { loading, error } = useAppSelector((state) => state.products);
@@ -21,7 +21,7 @@ export default function Home() {
   return (
     <main className="min-h-screen p-8">
       <Header />
-      
+      <Hero />
       {/* Search and Filters */}
       <div className="mb-8 space-y-4">
         <SearchBar />
