@@ -4,7 +4,7 @@ import { ThemeProvider } from "@/components/ThemeProvider";
 import { StoreProvider } from "@/lib/redux/StoreProvider";
 import { Toaster } from "sonner";
 import { Bebas_Neue, Open_Sans } from 'next/font/google';
-
+import { Footer } from "@/components/Footer";
 const bebasNeue = Bebas_Neue({ 
   subsets: ['latin'],
   weight: ['400'],
@@ -38,6 +38,7 @@ export default function RootLayout({
             disableTransitionOnChange
           >
             {children}
+            <Footer />
             <Toaster position="top-right" richColors />
           </ThemeProvider>
         </StoreProvider>
