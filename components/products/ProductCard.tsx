@@ -4,6 +4,7 @@ import { Card, Button } from '@/components/ui';
 import { useAppDispatch } from '@/lib/redux/hooks';
 import { addToCart } from '@/lib/redux/slices/cartSlice';
 import { toast } from 'sonner';
+import { WishlistButton } from '@/app/api/wishlist/WishlistButton';
 import type { Product } from '@/types/shopify';
 
 interface ProductCardProps {
@@ -42,6 +43,9 @@ export function ProductCard({ product }: ProductCardProps) {
   return (
     <Link href={`/products/${product.handle}`}>
       <Card hover className="p-4 flex flex-col h-full">
+      <div className="relative top-2 right-2 z-10">
+        <WishlistButton productId={product.id} size="md" />
+        </div>
         {image && (
           <div className="relative aspect-square w-full mb-4 bg-white rounded overflow-hidden">
             <img 

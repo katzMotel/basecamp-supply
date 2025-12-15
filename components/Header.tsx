@@ -2,7 +2,7 @@
 import { useSession, signOut } from 'next-auth/react';
 import { ThemeToggle } from './ui';
 import { useAppSelector } from '@/lib/redux/hooks';
-import { ShoppingCart, User, LogOut } from 'lucide-react';  // Import Lucide icon
+import { ShoppingCart, User, LogOut, Heart } from 'lucide-react';  // Import Lucide icon
 import { useState, useEffect } from 'react';
 import { CartDrawer } from './cart/CartDrawer';
 import Image from 'next/image';
@@ -53,6 +53,15 @@ export function Header() {
   
   {/* Cart & Theme - absolute positioned to right */}
   <div className="absolute right-4 flex items-center gap-4">
+    {/* Wishlist */}
+    <Link
+        href="/wishlist"
+        className="relative p-2 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors"
+        aria-label="Wishlist"
+      >
+        <Heart className="w-6 h-6" />
+
+    </Link>
     {/* Cart Button */}
     <button 
       onClick={() => setIsCartOpen(true)}
