@@ -7,6 +7,8 @@ import { addToCart } from '@/lib/redux/slices/cartSlice';
 import { Button } from '@/components/ui';
 import { ArrowLeft } from 'lucide-react';
 import { toast } from 'sonner';
+import { ReviewForm } from '../reviews/ReviewForm';
+import { ReviewList } from '../reviews/ReviewList';
 import type { ProductWithVariants } from '@/types/shopify';
 
 interface ProductDetailProps {
@@ -22,7 +24,7 @@ export function ProductDetail({ product }: ProductDetailProps) {
   const price = parseFloat(product.priceRange.minVariantPrice.amount);
   const currency = product.priceRange.minVariantPrice.currencyCode;
   const images = product.images.edges.map(edge => edge.node);
-
+  const [reviewRefreshTrigger, setReviewRefreshTrigger] = useState(0);
   const handleAddToCart = async () => {
     setIsAdding(true);
     
@@ -125,6 +127,30 @@ export function ProductDetail({ product }: ProductDetailProps) {
             </p>
           </div>
         </div>
+        {/* Reviews Section */}
+<section className="mt-16 pt-16 border-t border-gray-200 dark:border-gray-700">
+  <h2 className="text-3xl font-bold mb-8">Customer Reviews</h2>
+  
+  <div className="grid lg:grid-cols-3 gap-8">  {/* CHANGED */}
+    {/* Review Form - Takes 2 columns */}
+    <div className="lg:col-span-2">  {/* ADDED */}
+      <h3 className="text-xl font-semibold mb-4">Write a Review</h3>
+      <ReviewForm 
+        productId={product.id}
+        onReviewSubmitted={() => setReviewRefreshTrigger(prev => prev + 1)}
+      />
+    </div>  {/* ADDED */}
+
+    {/* Review List - Takes 1 column */}
+    <div className="lg:col-span-1">  {/* ADDED */}
+      <h3 className="text-xl font-semibold mb-4">All Reviews</h3>
+      <ReviewList 
+        productId={product.id}
+        refreshTrigger={reviewRefreshTrigger}
+      />
+    </div>  {/* ADDED */}
+  </div>
+</section>
       </div>
     </div>
   );
