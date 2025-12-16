@@ -5,7 +5,7 @@ import { prisma } from '@/lib/prisma';
 
 export async function DELETE(
   request: Request,
-  { params }: { params: { productId: string } }
+  { params }: { params: Promise<{ productId: string }> }
 ) {
   try {
     const session = await getServerSession(authOptions);
@@ -28,13 +28,14 @@ export async function DELETE(
       );
     }
 
-    const productId = decodeURIComponent(params.productId);
+    const { productId } = await params;  // Step 1: await and destructure
+    const decodedId = decodeURIComponent(productId);  // Step 2: decode the string
 
     await prisma.wishlistItem.delete({
       where: {
         userId_productId: {
           userId: user.id,
-          productId: productId,
+          productId: decodedId,  // Use decoded string
         },
       },
     });
