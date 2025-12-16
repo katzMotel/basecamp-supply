@@ -103,6 +103,7 @@ function UserMenu() {
         <User className="w-5 h-5" />
         Sign In
       </Link>
+      
     );
   }
 
@@ -140,7 +141,14 @@ function UserMenu() {
                 {session.user?.email}
               </p>
             </div>
-            
+            <div className='p-3 border-b border-gray-200 dark:border-gray-700'>
+              <Link
+                href="/orders"
+                className="text-sm font-medium text-gray-900 dark:text-white"
+                >
+                  Your Orders
+              </Link>
+            </div>
             <button
               onClick={() => signOut({ callbackUrl: '/' })}
               className="w-full flex items-center gap-2 px-4 py-2 text-sm text-red-600 dark:text-red-400 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
