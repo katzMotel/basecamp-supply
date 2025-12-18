@@ -1,3 +1,4 @@
+'use client';
 import { useState } from 'react';
 import Link from 'next/link';
 import { Card, Button } from '@/components/ui';
@@ -17,7 +18,7 @@ export function ProductCard({ product }: ProductCardProps) {
   
   const price = parseFloat(product.priceRange.minVariantPrice.amount);
   const currency = product.priceRange.minVariantPrice.currencyCode;
-  const image = product.images.edges[0]?.node;
+  const image = product.images?.edges?.[0]?.node || product.featuredImage;
 
   const handleAddToCart = async (e: React.MouseEvent) => {
     e.preventDefault();

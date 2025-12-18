@@ -18,6 +18,10 @@ export interface Product {
                 height:number;
             };
         }>;
+    };
+    featuredImage?:{
+        url: string;
+        altText: string | null;
     }
 }
 
@@ -58,4 +62,16 @@ export interface CartItem {
     imageAlt: string | null;
 }
 
+export interface Collection{
+    id: string;
+    title: string;
+    handle: string;
+    description?: string;
+    image?:{
+        url: string;
+        altText: string | null;
+    };
+}
+
 export type TransformProduct = (product: Product) => ProductDisplay;
+
